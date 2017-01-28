@@ -11,7 +11,7 @@ import UIKit
 
 extension UIViewController {
     
-    public func launchInContainerViewController(containerViewController: UIViewController, animated: Bool = true) {
+    func launchIn(containerViewController: UIViewController, animated: Bool = true) {
         containerViewController.addChildViewController(self)
         containerViewController.view.addAndFillWithSubview(subview: view)
         didMove(toParentViewController: containerViewController)

@@ -7,7 +7,23 @@
 //
 
 import Foundation
+import RxSwift
+import UIKit
 
 class TemperatureFlowController {
 
+    let componentViewController: TemperatureComponentViewController
+    private let navController: UINavigationController
+
+    // MARK: coordinators
+    private let conversionCoordinator: TemperatureConversionCoordinator
+
+    init() {
+        let units: Observable<(TemperatureUnit, TemperatureUnit)> = Observable.empty() // TODO connect to a new view controller
+        conversionCoordinator = TemperatureConversionCoordinator(units: units)
+        // initial state setup
+        componentViewController = TemperatureComponentViewController()
+        navController = UINavigationController(rootViewController: conversionCoordinator.viewController)
+        navController.launchIn(containerViewController: componentViewController)
+    }
 }
