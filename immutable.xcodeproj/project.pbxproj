@@ -14,6 +14,19 @@
 		419A28501E3BA154005F3B33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419A284E1E3BA154005F3B33 /* LaunchScreen.storyboard */; };
 		419A285B1E3BA154005F3B33 /* immutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A285A1E3BA154005F3B33 /* immutableTests.swift */; };
 		419A28661E3BA154005F3B33 /* immutableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28651E3BA154005F3B33 /* immutableUITests.swift */; };
+		419A28791E3BF033005F3B33 /* TemperatureFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28781E3BF033005F3B33 /* TemperatureFlowController.swift */; };
+		419A28801E3CC85B005F3B33 /* UIViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A287F1E3CC85B005F3B33 /* UIViewController+Layout.swift */; };
+		419A28821E3CC8C0005F3B33 /* UIView+Present.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28811E3CC8C0005F3B33 /* UIView+Present.swift */; };
+		419A28871E3CCA28005F3B33 /* TemperatureComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28851E3CCA28005F3B33 /* TemperatureComponentViewController.swift */; };
+		419A28881E3CCA28005F3B33 /* TemperatureComponentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419A28861E3CCA28005F3B33 /* TemperatureComponentViewController.xib */; };
+		419A288B1E3CCB25005F3B33 /* TemperatureConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */; };
+		419A288C1E3CCB25005F3B33 /* TemperatureConversionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */; };
+		419A288E1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */; };
+		419A28901E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */; };
+		419A28931E3CCD52005F3B33 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28921E3CCD52005F3B33 /* RxSwift.framework */; };
+		419A28951E3CCD6E005F3B33 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28941E3CCD6E005F3B33 /* RxCocoa.framework */; };
+		419A28971E3CCE4E005F3B33 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 419A28921E3CCD52005F3B33 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		419A28981E3CCE58005F3B33 /* RxCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 419A28941E3CCD6E005F3B33 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +46,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		419A28961E3CCE3C005F3B33 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				419A28981E3CCE58005F3B33 /* RxCocoa.framework in CopyFiles */,
+				419A28971E3CCE4E005F3B33 /* RxSwift.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		419A28421E3BA154005F3B33 /* immutable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = immutable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419A28451E3BA154005F3B33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +74,17 @@
 		419A28611E3BA154005F3B33 /* immutableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = immutableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		419A28651E3BA154005F3B33 /* immutableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = immutableUITests.swift; sourceTree = "<group>"; };
 		419A28671E3BA154005F3B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		419A28781E3BF033005F3B33 /* TemperatureFlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureFlowController.swift; path = Source/Temperature/TemperatureFlowController.swift; sourceTree = "<group>"; };
+		419A287F1E3CC85B005F3B33 /* UIViewController+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Layout.swift"; path = "Source/Extensions/UIViewController+Layout.swift"; sourceTree = "<group>"; };
+		419A28811E3CC8C0005F3B33 /* UIView+Present.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Present.swift"; path = "Source/Extensions/UIView+Present.swift"; sourceTree = "<group>"; };
+		419A28851E3CCA28005F3B33 /* TemperatureComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureComponentViewController.swift; path = Source/Temperature/TemperatureComponentViewController.swift; sourceTree = "<group>"; };
+		419A28861E3CCA28005F3B33 /* TemperatureComponentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TemperatureComponentViewController.xib; path = Source/Temperature/TemperatureComponentViewController.xib; sourceTree = "<group>"; };
+		419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionViewController.swift; path = Source/Temperature/TemperatureConversionViewController.swift; sourceTree = "<group>"; };
+		419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TemperatureConversionViewController.xib; path = Source/Temperature/TemperatureConversionViewController.xib; sourceTree = "<group>"; };
+		419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionPresenter.swift; path = Source/Temperature/TemperatureConversionPresenter.swift; sourceTree = "<group>"; };
+		419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionEventProvider.swift; path = Source/Temperature/TemperatureConversionEventProvider.swift; sourceTree = "<group>"; };
+		419A28921E3CCD52005F3B33 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		419A28941E3CCD6E005F3B33 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419A28951E3CCD6E005F3B33 /* RxCocoa.framework in Frameworks */,
+				419A28931E3CCD52005F3B33 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +121,7 @@
 				419A28591E3BA154005F3B33 /* immutableTests */,
 				419A28641E3BA154005F3B33 /* immutableUITests */,
 				419A28431E3BA154005F3B33 /* Products */,
+				419A28911E3CCD52005F3B33 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +138,12 @@
 		419A28441E3BA154005F3B33 /* immutable */ = {
 			isa = PBXGroup;
 			children = (
+				419A287E1E3CC83E005F3B33 /* Extensions */,
+				419A28771E3BEFDB005F3B33 /* Users */,
+				419A28761E3BECAC005F3B33 /* Hourglass */,
+				419A28751E3BECA6005F3B33 /* Temperature */,
+				419A28741E3BEC92005F3B33 /* Hourglass */,
+				419A28731E3BEC7F005F3B33 /* XInARow */,
 				419A28451E3BA154005F3B33 /* AppDelegate.swift */,
 				419A28471E3BA154005F3B33 /* ViewController.swift */,
 				419A28491E3BA154005F3B33 /* Main.storyboard */,
@@ -125,6 +172,66 @@
 			path = immutableUITests;
 			sourceTree = "<group>";
 		};
+		419A28731E3BEC7F005F3B33 /* XInARow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = XInARow;
+			sourceTree = "<group>";
+		};
+		419A28741E3BEC92005F3B33 /* Hourglass */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Hourglass;
+			sourceTree = "<group>";
+		};
+		419A28751E3BECA6005F3B33 /* Temperature */ = {
+			isa = PBXGroup;
+			children = (
+				419A28781E3BF033005F3B33 /* TemperatureFlowController.swift */,
+				419A28851E3CCA28005F3B33 /* TemperatureComponentViewController.swift */,
+				419A28861E3CCA28005F3B33 /* TemperatureComponentViewController.xib */,
+				419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */,
+				419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */,
+				419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */,
+				419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */,
+			);
+			name = Temperature;
+			sourceTree = "<group>";
+		};
+		419A28761E3BECAC005F3B33 /* Hourglass */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Hourglass;
+			sourceTree = "<group>";
+		};
+		419A28771E3BEFDB005F3B33 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+		419A287E1E3CC83E005F3B33 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				419A287F1E3CC85B005F3B33 /* UIViewController+Layout.swift */,
+				419A28811E3CC8C0005F3B33 /* UIView+Present.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		419A28911E3CCD52005F3B33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				419A28941E3CCD6E005F3B33 /* RxCocoa.framework */,
+				419A28921E3CCD52005F3B33 /* RxSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +242,7 @@
 				419A283E1E3BA154005F3B33 /* Sources */,
 				419A283F1E3BA154005F3B33 /* Frameworks */,
 				419A28401E3BA154005F3B33 /* Resources */,
+				419A28961E3CCE3C005F3B33 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -235,9 +343,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419A288C1E3CCB25005F3B33 /* TemperatureConversionViewController.xib in Resources */,
 				419A28501E3BA154005F3B33 /* LaunchScreen.storyboard in Resources */,
 				419A284D1E3BA154005F3B33 /* Assets.xcassets in Resources */,
 				419A284B1E3BA154005F3B33 /* Main.storyboard in Resources */,
+				419A28881E3CCA28005F3B33 /* TemperatureComponentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +373,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				419A28481E3BA154005F3B33 /* ViewController.swift in Sources */,
+				419A28821E3CC8C0005F3B33 /* UIView+Present.swift in Sources */,
 				419A28461E3BA154005F3B33 /* AppDelegate.swift in Sources */,
+				419A288E1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift in Sources */,
+				419A288B1E3CCB25005F3B33 /* TemperatureConversionViewController.swift in Sources */,
+				419A28871E3CCA28005F3B33 /* TemperatureComponentViewController.swift in Sources */,
+				419A28801E3CC85B005F3B33 /* UIViewController+Layout.swift in Sources */,
+				419A28901E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift in Sources */,
+				419A28791E3BF033005F3B33 /* TemperatureFlowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +533,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SE57AAFEBM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = immutable/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -430,6 +551,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SE57AAFEBM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = immutable/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
