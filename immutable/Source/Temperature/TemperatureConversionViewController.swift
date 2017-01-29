@@ -36,6 +36,9 @@ class TemperatureConversionViewController: UIViewController {
     private let fromTextSubject = PublishSubject<String>()
     lazy var fromText: Observable<String> = { return self.fromTextSubject.asObservable() }()
 
+    private let configTapSubject = PublishSubject<Void>()
+    lazy var configTap: Observable<Void> = { return self.configTapSubject.asObservable() }()
+
     // MARK: private
 
     private let disposeBag = DisposeBag()
@@ -67,6 +70,10 @@ class TemperatureConversionViewController: UIViewController {
         let conversionText: Observable<String> = viewState.map(viewStateDisplayText)
         Observable.combineLatest(conversionText, self.outputUnit, resultSelector: outputText)
             .bindTo(outputLabel.rx.text).addDisposableTo(disposeBag)
+
+        let configButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = configButton
+        configButton.rx.tap.subscribe(configTapSubject).addDisposableTo(disposeBag)
     }
 
 }

@@ -9,8 +9,6 @@
 import Foundation
 import RxSwift
 
-let initialConversion: (TemperatureUnit, TemperatureUnit) = (.fahrenheit, .celsius)
-
 func parse(text: String) -> Either<Bool, Double> {
     if text == "" {
         return .left(true)
@@ -44,7 +42,7 @@ class TemperatureConversionPresenter {
     let viewState: Observable<TemperatureConversionViewState>
 
     init(units: Observable<(TemperatureUnit, TemperatureUnit)>, eventProvider: TemperatureConversionEventProvider) {
-        let seededUnits = units.startWith(initialConversion).shareReplay(1)
+        let seededUnits = units.shareReplay(1)
         fromUnit = seededUnits.map { pair in pair.0.displayName() }
         toUnit = seededUnits.map { pair in pair.1.displayName() }
         let parsed: Observable<Either<Bool, Double>> = eventProvider.fromText

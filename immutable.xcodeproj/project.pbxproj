@@ -38,6 +38,8 @@
 		419A28AA1E3E53CB005F3B33 /* TemperatureConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419A28A81E3E53CB005F3B33 /* TemperatureConfigViewController.xib */; };
 		419A28AC1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28AB1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift */; };
 		419A28AE1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */; };
+		419A28B01E3E8B8C005F3B33 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */; };
+		419A28B11E3E9D29005F3B33 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,7 @@
 		419A28A81E3E53CB005F3B33 /* TemperatureConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TemperatureConfigViewController.xib; path = Source/Temperature/Config/TemperatureConfigViewController.xib; sourceTree = "<group>"; };
 		419A28AB1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConfigPresenter.swift; path = Source/Temperature/Config/TemperatureConfigPresenter.swift; sourceTree = "<group>"; };
 		419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConfigCoordinator.swift; path = Source/Temperature/Config/TemperatureConfigCoordinator.swift; sourceTree = "<group>"; };
+		419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419A28B11E3E9D29005F3B33 /* RxDataSources.framework in Frameworks */,
 				419A28951E3CCD6E005F3B33 /* RxCocoa.framework in Frameworks */,
 				419A28931E3CCD52005F3B33 /* RxSwift.framework in Frameworks */,
 			);
@@ -121,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419A28B01E3E8B8C005F3B33 /* RxDataSources.framework in Frameworks */,
 				419A28A21E3CF563005F3B33 /* RxCocoa.framework in Frameworks */,
 				419A28A31E3CF563005F3B33 /* RxSwift.framework in Frameworks */,
 			);
@@ -254,6 +259,7 @@
 		419A28911E3CCD52005F3B33 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */,
 				419A28941E3CCD6E005F3B33 /* RxCocoa.framework */,
 				419A28921E3CCD52005F3B33 /* RxSwift.framework */,
 			);

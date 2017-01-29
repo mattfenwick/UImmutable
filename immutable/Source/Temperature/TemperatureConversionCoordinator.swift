@@ -12,11 +12,11 @@ import RxSwift
 class TemperatureConversionCoordinator {
 
     let viewController: TemperatureConversionViewController
+    let configTap: Observable<Void>
     
-    private let presenter: TemperatureConversionPresenter
-
     // private properties
 
+    private let presenter: TemperatureConversionPresenter
     private let disposeBag = DisposeBag()
     private let fromText = PublishSubject<String>()
 
@@ -28,5 +28,6 @@ class TemperatureConversionCoordinator {
         viewController = TemperatureConversionViewController(inputUnit: presenter.fromUnit, outputUnit: presenter.toUnit, viewState: presenter.viewState)
         // tie up circular references
         viewController.fromText.subscribe(fromText).addDisposableTo(disposeBag)
+        configTap = viewController.configTap
     }
 }

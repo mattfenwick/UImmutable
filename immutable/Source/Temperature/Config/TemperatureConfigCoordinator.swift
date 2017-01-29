@@ -7,13 +7,19 @@
 //
 
 import Foundation
+import RxSwift
 
 class TemperatureConfigCoordinator {
 
+    let cancel: Observable<Void>
+    let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)>
+
     let viewController: TemperatureConfigViewController
-    private let presenter: TemperatureConfigPresenter
 
     init() {
-
+        let units: [TemperatureUnit] = [.celsius, .fahrenheit, .kelvin]
+        viewController = TemperatureConfigViewController(initialFromUnit: .celsius, initialToUnit: .fahrenheit, units: units)
+        cancel = viewController.cancelTap
+        unitSelection = viewController.doneTap
     }
 }
