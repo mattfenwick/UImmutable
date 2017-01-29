@@ -34,6 +34,10 @@
 		419A28A21E3CF563005F3B33 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28941E3CCD6E005F3B33 /* RxCocoa.framework */; };
 		419A28A31E3CF563005F3B33 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28921E3CCD52005F3B33 /* RxSwift.framework */; };
 		419A28A51E3D569D005F3B33 /* TemperatureConversionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28A41E3D569D005F3B33 /* TemperatureConversionViewState.swift */; };
+		419A28A91E3E53CB005F3B33 /* TemperatureConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28A71E3E53CB005F3B33 /* TemperatureConfigViewController.swift */; };
+		419A28AA1E3E53CB005F3B33 /* TemperatureConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419A28A81E3E53CB005F3B33 /* TemperatureConfigViewController.xib */; };
+		419A28AC1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28AB1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift */; };
+		419A28AE1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +101,10 @@
 		419A289E1E3CF14D005F3B33 /* TemperatureConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConverter.swift; path = Source/Temperature/TemperatureConverter.swift; sourceTree = "<group>"; };
 		419A28A01E3CF45F005F3B33 /* TemperatureConverterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureConverterTests.swift; sourceTree = "<group>"; };
 		419A28A41E3D569D005F3B33 /* TemperatureConversionViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionViewState.swift; path = Source/Temperature/TemperatureConversionViewState.swift; sourceTree = "<group>"; };
+		419A28A71E3E53CB005F3B33 /* TemperatureConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConfigViewController.swift; path = Source/Temperature/Config/TemperatureConfigViewController.swift; sourceTree = "<group>"; };
+		419A28A81E3E53CB005F3B33 /* TemperatureConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TemperatureConfigViewController.xib; path = Source/Temperature/Config/TemperatureConfigViewController.xib; sourceTree = "<group>"; };
+		419A28AB1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConfigPresenter.swift; path = Source/Temperature/Config/TemperatureConfigPresenter.swift; sourceTree = "<group>"; };
+		419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConfigCoordinator.swift; path = Source/Temperature/Config/TemperatureConfigCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +213,7 @@
 		419A28751E3BECA6005F3B33 /* Temperature */ = {
 			isa = PBXGroup;
 			children = (
+				419A28A61E3E53B4005F3B33 /* Config */,
 				419A28781E3BF033005F3B33 /* TemperatureFlowController.swift */,
 				419A28851E3CCA28005F3B33 /* TemperatureComponentViewController.swift */,
 				419A28861E3CCA28005F3B33 /* TemperatureComponentViewController.xib */,
@@ -257,6 +266,17 @@
 				419A289A1E3CCFB9005F3B33 /* Either.swift */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		419A28A61E3E53B4005F3B33 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				419A28A71E3E53CB005F3B33 /* TemperatureConfigViewController.swift */,
+				419A28A81E3E53CB005F3B33 /* TemperatureConfigViewController.xib */,
+				419A28AB1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift */,
+				419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				419A288C1E3CCB25005F3B33 /* TemperatureConversionViewController.xib in Resources */,
+				419A28AA1E3E53CB005F3B33 /* TemperatureConfigViewController.xib in Resources */,
 				419A28501E3BA154005F3B33 /* LaunchScreen.storyboard in Resources */,
 				419A284D1E3BA154005F3B33 /* Assets.xcassets in Resources */,
 				419A284B1E3BA154005F3B33 /* Main.storyboard in Resources */,
@@ -402,10 +423,13 @@
 				419A28481E3BA154005F3B33 /* ViewController.swift in Sources */,
 				419A28821E3CC8C0005F3B33 /* UIView+Present.swift in Sources */,
 				419A28461E3BA154005F3B33 /* AppDelegate.swift in Sources */,
+				419A28AC1E3E53DC005F3B33 /* TemperatureConfigPresenter.swift in Sources */,
+				419A28A91E3E53CB005F3B33 /* TemperatureConfigViewController.swift in Sources */,
 				419A289F1E3CF14D005F3B33 /* TemperatureConverter.swift in Sources */,
 				419A288E1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift in Sources */,
 				419A289B1E3CCFB9005F3B33 /* Either.swift in Sources */,
 				419A288B1E3CCB25005F3B33 /* TemperatureConversionViewController.swift in Sources */,
+				419A28AE1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift in Sources */,
 				419A28A51E3D569D005F3B33 /* TemperatureConversionViewState.swift in Sources */,
 				419A289D1E3CD19A005F3B33 /* TemperatureConversionCoordinator.swift in Sources */,
 				419A28871E3CCA28005F3B33 /* TemperatureComponentViewController.swift in Sources */,
