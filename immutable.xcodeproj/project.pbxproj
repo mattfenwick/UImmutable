@@ -40,6 +40,7 @@
 		419A28AE1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28AD1E3E53EC005F3B33 /* TemperatureConfigCoordinator.swift */; };
 		419A28B01E3E8B8C005F3B33 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */; };
 		419A28B11E3E9D29005F3B33 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */; };
+		419A28B21E3E9D9C005F3B33 /* RxDataSources.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 419A28AF1E3E8B8C005F3B33 /* RxDataSources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				419A28B21E3E9D9C005F3B33 /* RxDataSources.framework in CopyFiles */,
 				419A28981E3CCE58005F3B33 /* RxCocoa.framework in CopyFiles */,
 				419A28971E3CCE4E005F3B33 /* RxSwift.framework in CopyFiles */,
 			);
