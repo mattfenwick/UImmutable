@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import UIKit
 
+private let initialUnits: (TemperatureUnit, TemperatureUnit) = (.celsius, .fahrenheit)
+
 class TemperatureFlowController {
 
     let componentViewController: TemperatureComponentViewController
@@ -30,7 +32,7 @@ class TemperatureFlowController {
     init() {
         unitSelectionSubject = PublishSubject()
         unitSelection = unitSelectionSubject.asObservable()
-        let units = unitSelection.startWith((.fahrenheit, .celsius))
+        let units = unitSelection.startWith(initialUnits) // TODO read from NSUserDefaults, perhaps
         conversionCoordinator = TemperatureConversionCoordinator(units: units)
         configCoordinator = TemperatureConfigCoordinator()
 
@@ -41,29 +43,21 @@ class TemperatureFlowController {
 
         // flow
         let updateUnitSelection: Observable<(TemperatureUnit, TemperatureUnit)> = configCoordinator.unitSelection.shareReplay(1)
-        updateUnitSelection.subscribe {
+        updateUnitSelection.subscribe(onNext: { _ in
             self.updateConfig()
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
         updateUnitSelection.subscribe(unitSelectionSubject).addDisposableTo(disposeBag)
 
-        conversionCoordinator.configTap.subscribe {
+        conversionCoordinator.configTap.subscribe(onNext: {
             self.showConfig() // TODO weak self? unowned?
-        }.addDisposableTo(disposeBag)
-
-        configCoordinator.cancel.subscribe {
-            self.cancelConfig()
-        }.addDisposableTo(disposeBag)
+        }).addDisposableTo(disposeBag)
     }
 
     private func showConfig() {
-        self.navController.present(self.configCoordinator.viewController, animated: true, completion: nil)
-    }
-
-    private func cancelConfig() {
-        self.navController.dismiss(animated: true, completion: nil)
+        self.navController.pushViewController(self.configCoordinator.viewController, animated: true)
     }
 
     private func updateConfig() {
-
+        self.navController.popViewController(animated: true)
     }
 }

@@ -64,6 +64,7 @@ class TemperatureConversionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Converter"
 
         textField.rx.text.orEmpty.subscribe(fromTextSubject).addDisposableTo(disposeBag)
         inputUnit.bindTo(inputUnitLabel.rx.text).addDisposableTo(disposeBag)

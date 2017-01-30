@@ -35,9 +35,6 @@ class TemperatureConfigViewController: UIViewController {
 
     // MARK: output
 
-    private let cancelTapSubject: PublishSubject<Void> = PublishSubject()
-    lazy var cancelTap: Observable<Void> = { return self.cancelTapSubject.asObservable() }()
-
     private let doneTapSubject: PublishSubject<(TemperatureUnit, TemperatureUnit)> = PublishSubject()
     lazy var doneTap: Observable<(TemperatureUnit, TemperatureUnit)> = { return self.doneTapSubject.asObservable() }()
 
@@ -68,40 +65,45 @@ class TemperatureConfigViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Choose units"
+
         // bar buttons
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
-        let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-        self.navigationItem.leftBarButtonItem = cancelBarButtonItem
+        let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = doneBarButtonItem
 
         // from tableview setup
         fromUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: fromReuseIdentifier)
-        let fromSource = RxTableViewSectionedAnimatedDataSource<AnimatableSectionModel<String, TemperatureUnit>>()
         fromSource.configureCell = TemperatureConfigViewController.configureCell(reuseIdentifier: fromReuseIdentifier)
-        Observable.just(sections)
-            .bindTo(fromUnitTableView.rx.items(dataSource: fromSource))
+        Driver.just(sections)
+            .drive(fromUnitTableView.rx.items(dataSource: fromSource))
             .addDisposableTo(disposeBag)
 
         // to tableview setup
         toUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: toReuseIdentifier)
         toSource.configureCell = TemperatureConfigViewController.configureCell(reuseIdentifier: toReuseIdentifier)
-        Observable.just(sections)
-            .bindTo(toUnitTableView.rx.items(dataSource: toSource))
+        Driver.just(sections)
+            .drive(toUnitTableView.rx.items(dataSource: toSource))
             .addDisposableTo(disposeBag)
 
         // output boilerplate
-        cancelBarButtonItem.rx.tap.subscribe(cancelTapSubject).addDisposableTo(disposeBag)
         let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)> = Observable.combineLatest(
             fromUnitTableView.rx.modelSelected(TemperatureUnit.self).startWith(initialFromUnit),
             toUnitTableView.rx.modelSelected(TemperatureUnit.self).startWith(initialToUnit),
-            resultSelector: { (from, to) in (from, to) })
-        doneBarButtonItem.rx.tap.withLatestFrom(unitSelection).subscribe(doneTapSubject).addDisposableTo(disposeBag)
+            resultSelector: { (from, to) in
+                (from, to)
+            })
+        doneBarButtonItem.rx.tap
+            .withLatestFrom(unitSelection)
+            .subscribe(doneTapSubject)
+            .addDisposableTo(disposeBag)
     }
 
     static func configureCell(reuseIdentifier: String) ->
         (TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>, UITableView, IndexPath, TemperatureUnit) -> UITableViewCell {
         return { (ds, tv, ip, item) in
             let cell = tv.dequeueReusableCell(withIdentifier: reuseIdentifier, for: ip)
+            cell.textLabel?.text = "\(item)"
+            cell.selectionStyle = .blue
             return cell
         }
     }
