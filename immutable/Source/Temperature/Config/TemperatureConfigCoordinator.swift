@@ -15,9 +15,40 @@ class TemperatureConfigCoordinator {
 
     let viewController: TemperatureConfigViewController
 
-    init() {
+    private let presenter: TemperatureConfigPresenter
+
+    // MARK: boilerplate
+
+    private let disposeBag = DisposeBag()
+    private let debugTextSubject = PublishSubject<String>()
+
+    // MARK: init
+
+    init(initialFromUnit: TemperatureUnit, initialToUnit: TemperatureUnit) {
         let units: [TemperatureUnit] = [.celsius, .fahrenheit, .kelvin]
-        viewController = TemperatureConfigViewController(initialFromUnit: .celsius, initialToUnit: .fahrenheit, units: units)
+        viewController = TemperatureConfigViewController(
+            initialFromUnit: initialFromUnit,
+            initialToUnit: initialToUnit,
+            units: units,
+            debugText: debugTextSubject.asDriver(onErrorJustReturn: ""))
+        presenter = TemperatureConfigPresenter(
+            initialFromUnit: initialFromUnit,
+            fromUnit: viewController.fromUnit,
+            initialToUnit: initialToUnit,
+            toUnit: viewController.toUnit)
         unitSelection = viewController.doneTap
+            .debug("done tap -- coordinator")
+            .withLatestFrom(presenter.unitSelection)
+
+        // boilerplate
+        presenter.debugText
+            .debug("debug text -- coordinator")
+            .subscribe(debugTextSubject)
+            .addDisposableTo(disposeBag)
     }
+
+    deinit {
+        print("deinit TemperatureConfigCoordinator")
+    }
+
 }

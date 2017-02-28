@@ -39,6 +39,9 @@ class TemperatureConversionViewController: UIViewController {
     private let configTapSubject = PublishSubject<Void>()
     lazy var configTap: Observable<Void> = { return self.configTapSubject.asObservable() }()
 
+    private let doneTapSubject = PublishSubject<Void>()
+    lazy private (set) var doneTap: Observable<Void> = { return self.doneTapSubject.asObservable() }()
+
     // MARK: private
 
     private let disposeBag = DisposeBag()
@@ -75,6 +78,14 @@ class TemperatureConversionViewController: UIViewController {
         let configButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
         navigationItem.rightBarButtonItem = configButton
         configButton.rx.tap.subscribe(configTapSubject).addDisposableTo(disposeBag)
+
+        let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+        navigationItem.leftBarButtonItem = dismissButton
+        dismissButton.rx.tap.subscribe(doneTapSubject).addDisposableTo(disposeBag)
+    }
+
+    deinit {
+        print("deinit TemperatureConversionViewController")
     }
 
 }

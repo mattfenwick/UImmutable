@@ -25,18 +25,31 @@ class TemperatureConfigViewController: UIViewController {
 
     // MARK: ui elements
 
-    @IBOutlet private weak var fromContainerView: UIView!
-    @IBOutlet private weak var toContainerView: UIView!
     @IBOutlet private weak var fromLabel: UILabel!
     @IBOutlet private weak var toLabel: UILabel!
 
     @IBOutlet private weak var fromUnitTableView: UITableView!
     @IBOutlet private weak var toUnitTableView: UITableView!
 
+    @IBOutlet private weak var debugLabel: UILabel!
+
     // MARK: output
 
-    private let doneTapSubject: PublishSubject<(TemperatureUnit, TemperatureUnit)> = PublishSubject()
-    lazy var doneTap: Observable<(TemperatureUnit, TemperatureUnit)> = { return self.doneTapSubject.asObservable() }()
+    private let doneTapSubject = PublishSubject<Void>()
+    private let fromUnitSubject = PublishSubject<TemperatureUnit>()
+    private let toUnitSubject = PublishSubject<TemperatureUnit>()
+
+    lazy private (set) var doneTap: Observable<Void> = {
+        return self.doneTapSubject.asObservable()
+    }()
+
+    lazy private (set) var fromUnit: Observable<TemperatureUnit> = {
+        return self.fromUnitSubject.asObservable()
+    }()
+
+    lazy private (set) var toUnit: Observable<TemperatureUnit> = {
+        return self.toUnitSubject.asObservable()
+    }()
 
     // MARK: private variables
 
@@ -46,19 +59,30 @@ class TemperatureConfigViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let initialFromUnit: TemperatureUnit
     private let initialToUnit: TemperatureUnit
+    private let debugText: Driver<String>
 
     // MARK: init
 
-    init(initialFromUnit: TemperatureUnit, initialToUnit: TemperatureUnit, units: [TemperatureUnit]) {
+    init(initialFromUnit: TemperatureUnit,
+         initialToUnit: TemperatureUnit,
+         units: [TemperatureUnit],
+         debugText: Driver<String>) {
         self.initialFromUnit = initialFromUnit
         self.initialToUnit = initialToUnit
         self.sections = [AnimatableSectionModel(model: "", items: units)]
+        self.debugText = debugText
         super.init(nibName: "TemperatureConfigViewController",
                    bundle: Bundle(for: TemperatureConfigViewController.self))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: deinit
+
+    deinit {
+        print("deinit TemperatureConfigViewController")
     }
 
     // MARK: - view life cycle
@@ -71,41 +95,70 @@ class TemperatureConfigViewController: UIViewController {
         let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = doneBarButtonItem
 
+        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
+
+        cancelBarButtonItem.rx.tap
+            .subscribe(onNext: { print("left button tap") })
+            .addDisposableTo(disposeBag)
+
         // from tableview setup
         fromUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: fromReuseIdentifier)
-        fromSource.configureCell = TemperatureConfigViewController.configureCell(reuseIdentifier: fromReuseIdentifier)
+        fromSource.configureCell = configureFromCell
         Driver.just(sections)
             .drive(fromUnitTableView.rx.items(dataSource: fromSource))
             .addDisposableTo(disposeBag)
 
         // to tableview setup
         toUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: toReuseIdentifier)
-        toSource.configureCell = TemperatureConfigViewController.configureCell(reuseIdentifier: toReuseIdentifier)
+        toSource.configureCell = configureToCell
         Driver.just(sections)
             .drive(toUnitTableView.rx.items(dataSource: toSource))
             .addDisposableTo(disposeBag)
 
+        // debug text
+        debugText
+            .drive(debugLabel.rx.text)
+            .addDisposableTo(disposeBag)
+
         // output boilerplate
-        let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)> = Observable.combineLatest(
-            fromUnitTableView.rx.modelSelected(TemperatureUnit.self).startWith(initialFromUnit),
-            toUnitTableView.rx.modelSelected(TemperatureUnit.self).startWith(initialToUnit),
-            resultSelector: { (from, to) in
-                (from, to)
-            })
         doneBarButtonItem.rx.tap
-            .withLatestFrom(unitSelection)
             .subscribe(doneTapSubject)
+            .addDisposableTo(disposeBag)
+
+        fromUnitTableView.rx.modelSelected(TemperatureUnit.self)
+            .subscribe(fromUnitSubject)
+            .addDisposableTo(disposeBag)
+
+        toUnitTableView.rx.modelSelected(TemperatureUnit.self)
+            .subscribe(toUnitSubject)
             .addDisposableTo(disposeBag)
     }
 
-    static func configureCell(reuseIdentifier: String) ->
-        (TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>, UITableView, IndexPath, TemperatureUnit) -> UITableViewCell {
-        return { (ds, tv, ip, item) in
-            let cell = tv.dequeueReusableCell(withIdentifier: reuseIdentifier, for: ip)
-            cell.textLabel?.text = "\(item)"
-            cell.selectionStyle = .blue
-            return cell
+    private func configureFromCell(ds: TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>,
+                                   tv: UITableView,
+                                   ip: IndexPath,
+                                   item: TemperatureUnit) -> UITableViewCell {
+        let cell = tv.dequeueReusableCell(withIdentifier: fromReuseIdentifier, for: ip)
+        cell.textLabel?.text = "\(item)"
+        cell.selectionStyle = .blue
+        if item == initialFromUnit {
+            tv.selectRow(at: ip, animated: false, scrollPosition: .none)
         }
+        return cell
+    }
+
+    private func configureToCell(ds: TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>,
+                                 tv: UITableView,
+                                 ip: IndexPath,
+                                 item: TemperatureUnit) -> UITableViewCell {
+        let cell = tv.dequeueReusableCell(withIdentifier: toReuseIdentifier, for: ip)
+        cell.textLabel?.text = "\(item)"
+        cell.selectionStyle = .blue
+        if item == initialToUnit {
+            tv.selectRow(at: ip, animated: false, scrollPosition: .none)
+        }
+        return cell
     }
 
 }

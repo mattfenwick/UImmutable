@@ -22,4 +22,8 @@ class TemperatureComponentViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    deinit {
+        print("deinit TemperatureComponentViewController")
+    }
+
 }

@@ -52,4 +52,8 @@ class TemperatureConversionPresenter {
             .map(eitherToViewState)
             .startWith(.empty)
     }
+
+    deinit {
+        print("deinit TemperatureConversionPresenter")
+    }
 }

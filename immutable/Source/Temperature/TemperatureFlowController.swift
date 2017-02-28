@@ -19,22 +19,22 @@ class TemperatureFlowController {
 
     // MARK: coordinators
     private let conversionCoordinator: TemperatureConversionCoordinator
-    private let configCoordinator: TemperatureConfigCoordinator
 
     // MARK: boilerplate
 
     private let unitSelectionSubject: PublishSubject<(TemperatureUnit, TemperatureUnit)>
-    let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)>
     private let disposeBag = DisposeBag()
+
+    private var configResources: (coordinator: TemperatureConfigCoordinator, disposeBag: DisposeBag)? = nil
+
+    let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)>
 
     // MARK: init
 
     init() {
         unitSelectionSubject = PublishSubject()
-        unitSelection = unitSelectionSubject.asObservable()
-        let units = unitSelection.startWith(initialUnits) // TODO read from NSUserDefaults, perhaps
-        conversionCoordinator = TemperatureConversionCoordinator(units: units)
-        configCoordinator = TemperatureConfigCoordinator()
+        unitSelection = unitSelectionSubject.asObservable().startWith(initialUnits)
+        conversionCoordinator = TemperatureConversionCoordinator(units: unitSelection)
 
         // initial state setup
         componentViewController = TemperatureComponentViewController()
@@ -42,22 +42,42 @@ class TemperatureFlowController {
         navController.launchIn(containerViewController: componentViewController)
 
         // flow
-        let updateUnitSelection: Observable<(TemperatureUnit, TemperatureUnit)> = configCoordinator.unitSelection.shareReplay(1)
-        updateUnitSelection.subscribe(onNext: { _ in
-            self.updateConfig()
-        }).addDisposableTo(disposeBag)
-        updateUnitSelection.subscribe(unitSelectionSubject).addDisposableTo(disposeBag)
+        conversionCoordinator.configTap
+            .withLatestFrom(unitSelection)
+            .subscribe(onNext: showConfig)
+            .addDisposableTo(disposeBag)
 
-        conversionCoordinator.configTap.subscribe(onNext: {
-            self.showConfig() // TODO weak self? unowned?
-        }).addDisposableTo(disposeBag)
+        conversionCoordinator.doneTap
+            .subscribe(onNext: didTapDone)
+            .addDisposableTo(disposeBag)
     }
 
-    private func showConfig() {
-        self.navController.pushViewController(self.configCoordinator.viewController, animated: true)
+    private func didTapDone() {
+        conversionCoordinator.viewController.dismiss(animated: true, completion: nil)
     }
 
-    private func updateConfig() {
+    private func showConfig(currentUnits: (TemperatureUnit, TemperatureUnit)) {
+        let configCoordinator = TemperatureConfigCoordinator(initialFromUnit: currentUnits.0, initialToUnit: currentUnits.1)
+
+        let localDisposeBag = DisposeBag()
+
+        configCoordinator
+            .unitSelection
+            .subscribe(onNext: updateConfig)
+            .addDisposableTo(localDisposeBag)
+
+        self.navController.pushViewController(configCoordinator.viewController, animated: true)
+
+        configResources = .some((coordinator: configCoordinator, disposeBag: localDisposeBag))
+    }
+
+    private func updateConfig(newUnits: (TemperatureUnit, TemperatureUnit)) {
+        unitSelectionSubject.onNext(newUnits)
         self.navController.popViewController(animated: true)
+        configResources = nil
+    }
+
+    deinit {
+        print("deinit TemperatureFlowController")
     }
 }

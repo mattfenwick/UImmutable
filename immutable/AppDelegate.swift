@@ -11,16 +11,12 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    // MARK: components
-
-    private let temperatureComponent = TemperatureFlowController()
-
     // MARK: typical app delegate stuff
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.window?.rootViewController = temperatureComponent.componentViewController
+        self.window?.rootViewController = RootViewController()
         return true
     }
 
