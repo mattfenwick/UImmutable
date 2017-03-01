@@ -69,19 +69,32 @@ class TemperatureConversionViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Converter"
 
-        textField.rx.text.orEmpty.subscribe(fromTextSubject).addDisposableTo(disposeBag)
-        inputUnit.bindTo(inputUnitLabel.rx.text).addDisposableTo(disposeBag)
-        let conversionText: Observable<String> = viewState.map(viewStateDisplayText)
-        Observable.combineLatest(conversionText, self.outputUnit, resultSelector: outputText)
-            .bindTo(outputLabel.rx.text).addDisposableTo(disposeBag)
+        textField.rx.text.orEmpty
+            .subscribe(fromTextSubject)
+            .addDisposableTo(disposeBag)
+
+        inputUnit
+            .bindTo(inputUnitLabel.rx.text)
+            .addDisposableTo(disposeBag)
+
+        let conversionText: Observable<String> = viewState
+            .map(viewStateDisplayText)
+        Observable
+            .combineLatest(conversionText, self.outputUnit, resultSelector: outputText)
+            .bindTo(outputLabel.rx.text)
+            .addDisposableTo(disposeBag)
 
         let configButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
         navigationItem.rightBarButtonItem = configButton
-        configButton.rx.tap.subscribe(configTapSubject).addDisposableTo(disposeBag)
+        configButton.rx.tap
+            .subscribe(configTapSubject)
+            .addDisposableTo(disposeBag)
 
         let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
         navigationItem.leftBarButtonItem = dismissButton
-        dismissButton.rx.tap.subscribe(doneTapSubject).addDisposableTo(disposeBag)
+        dismissButton.rx.tap
+            .subscribe(doneTapSubject)
+            .addDisposableTo(disposeBag)
     }
 
     deinit {

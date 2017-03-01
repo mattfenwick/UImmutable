@@ -41,14 +41,16 @@ class TemperatureConversionPresenter {
     let toUnit: Observable<String>
     let viewState: Observable<TemperatureConversionViewState>
 
-    init(units: Observable<(TemperatureUnit, TemperatureUnit)>, eventProvider: TemperatureConversionEventProvider) {
-        let seededUnits = units.shareReplay(1)
+    init(units: Observable<(TemperatureUnit, TemperatureUnit)>, fromText: Observable<String>) {
+        let seededUnits = units.shareReplay(1) // TODO is this shareReplay actually necessary?
         fromUnit = seededUnits.map { pair in pair.0.displayName() }
         toUnit = seededUnits.map { pair in pair.1.displayName() }
-        let parsed: Observable<Either<Bool, Double>> = eventProvider.fromText
-            .throttle(1.0, scheduler: MainScheduler.instance)
+
+        let parsed: Observable<Either<Bool, Double>> = fromText
+            .debounce(1.0, scheduler: MainScheduler.instance)
             .map(parse)
-        viewState = Observable.combineLatest(parsed, seededUnits, resultSelector: calculateTemperature)
+        viewState = Observable
+            .combineLatest(parsed, seededUnits, resultSelector: calculateTemperature)
             .map(eitherToViewState)
             .startWith(.empty)
     }

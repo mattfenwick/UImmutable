@@ -104,20 +104,23 @@ class TemperatureConfigViewController: UIViewController {
 
         // from tableview setup
         fromUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: fromReuseIdentifier)
-        fromSource.configureCell = configureFromCell
+        fromSource.configureCell = TemperatureConfigViewController.configureCell(initialUnit: initialFromUnit, reuseIdentifier: fromReuseIdentifier)
+
         Driver.just(sections)
             .drive(fromUnitTableView.rx.items(dataSource: fromSource))
             .addDisposableTo(disposeBag)
 
         // to tableview setup
         toUnitTableView.register(UITableViewCell.self, forCellReuseIdentifier: toReuseIdentifier)
-        toSource.configureCell = configureToCell
+        toSource.configureCell = TemperatureConfigViewController.configureCell(initialUnit: initialToUnit, reuseIdentifier: toReuseIdentifier)
+
         Driver.just(sections)
             .drive(toUnitTableView.rx.items(dataSource: toSource))
             .addDisposableTo(disposeBag)
 
         // debug text
         debugText
+            .debug("debug text in vc")
             .drive(debugLabel.rx.text)
             .addDisposableTo(disposeBag)
 
@@ -135,30 +138,20 @@ class TemperatureConfigViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
 
-    private func configureFromCell(ds: TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>,
-                                   tv: UITableView,
-                                   ip: IndexPath,
-                                   item: TemperatureUnit) -> UITableViewCell {
-        let cell = tv.dequeueReusableCell(withIdentifier: fromReuseIdentifier, for: ip)
-        cell.textLabel?.text = "\(item)"
-        cell.selectionStyle = .blue
-        if item == initialFromUnit {
-            tv.selectRow(at: ip, animated: false, scrollPosition: .none)
+    private static func configureCell(initialUnit: TemperatureUnit, reuseIdentifier: String)
+            -> (TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>,
+                UITableView,
+                IndexPath,
+                TemperatureUnit) -> UITableViewCell {
+        return { (ds, tv, ip, item) in
+            let cell = tv.dequeueReusableCell(withIdentifier: reuseIdentifier, for: ip)
+            cell.textLabel?.text = "\(item)"
+            cell.selectionStyle = .blue
+            if item == initialUnit {
+                tv.selectRow(at: ip, animated: false, scrollPosition: .none)
+            }
+            return cell
         }
-        return cell
-    }
-
-    private func configureToCell(ds: TableViewSectionedDataSource<AnimatableSectionModel<String, TemperatureUnit>>,
-                                 tv: UITableView,
-                                 ip: IndexPath,
-                                 item: TemperatureUnit) -> UITableViewCell {
-        let cell = tv.dequeueReusableCell(withIdentifier: toReuseIdentifier, for: ip)
-        cell.textLabel?.text = "\(item)"
-        cell.selectionStyle = .blue
-        if item == initialToUnit {
-            tv.selectRow(at: ip, animated: false, scrollPosition: .none)
-        }
-        return cell
     }
 
 }

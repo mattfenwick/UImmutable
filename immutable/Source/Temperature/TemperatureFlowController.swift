@@ -15,6 +15,11 @@ private let initialUnits: (TemperatureUnit, TemperatureUnit) = (.celsius, .fahre
 class TemperatureFlowController {
 
     let componentViewController: TemperatureComponentViewController
+
+    lazy private (set) var didTapDone: Observable<Void> = {
+        return self.didTapDoneSubject.asObservable()
+    }()
+
     private let navController: UINavigationController
 
     // MARK: coordinators
@@ -22,10 +27,12 @@ class TemperatureFlowController {
 
     // MARK: boilerplate
 
+    private let didTapDoneSubject = PublishSubject<Void>()
+
     private let unitSelectionSubject: PublishSubject<(TemperatureUnit, TemperatureUnit)>
     private let disposeBag = DisposeBag()
 
-    private var configResources: (coordinator: TemperatureConfigCoordinator, disposeBag: DisposeBag)? = nil
+    private var configCoordinator: TemperatureConfigCoordinator? = nil
 
     let unitSelection: Observable<(TemperatureUnit, TemperatureUnit)>
 
@@ -44,37 +51,36 @@ class TemperatureFlowController {
         // flow
         conversionCoordinator.configTap
             .withLatestFrom(unitSelection)
-            .subscribe(onNext: showConfig)
+            .subscribe(onNext: { [unowned self] (units) in self.showConfig(currentUnits: units) })
             .addDisposableTo(disposeBag)
 
         conversionCoordinator.doneTap
-            .subscribe(onNext: didTapDone)
+            .subscribe(didTapDoneSubject)
             .addDisposableTo(disposeBag)
     }
 
-    private func didTapDone() {
-        conversionCoordinator.viewController.dismiss(animated: true, completion: nil)
-    }
-
     private func showConfig(currentUnits: (TemperatureUnit, TemperatureUnit)) {
-        let configCoordinator = TemperatureConfigCoordinator(initialFromUnit: currentUnits.0, initialToUnit: currentUnits.1)
-
-        let localDisposeBag = DisposeBag()
+        let configCoordinator = TemperatureConfigCoordinator(
+            initialFromUnit: currentUnits.0,
+            initialToUnit: currentUnits.1)
 
         configCoordinator
             .unitSelection
-            .subscribe(onNext: updateConfig)
-            .addDisposableTo(localDisposeBag)
+            .debug("config coordinator -- from flow controller")
+            .subscribe(onNext: { [unowned self] (units) in
+                self.updateConfig(newUnits: units)
+            })
+            .addDisposableTo(disposeBag)
 
         self.navController.pushViewController(configCoordinator.viewController, animated: true)
 
-        configResources = .some((coordinator: configCoordinator, disposeBag: localDisposeBag))
+        self.configCoordinator = .some(configCoordinator)
     }
 
     private func updateConfig(newUnits: (TemperatureUnit, TemperatureUnit)) {
         unitSelectionSubject.onNext(newUnits)
         self.navController.popViewController(animated: true)
-        configResources = nil
+        configCoordinator = nil
     }
 
     deinit {

@@ -28,7 +28,7 @@ class TemperatureConfigPresenter {
             toUnit.startWith(initialToUnit),
             resultSelector: make2Tuple)
         debugText = unitSelection
-            .map { tuple in "\(tuple)" }
+            .map { tuple in "(from: \(tuple.0.displayName()), to: \(tuple.1.displayName()))" }
     }
 
     deinit {

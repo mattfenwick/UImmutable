@@ -26,7 +26,6 @@
 		419A288B1E3CCB25005F3B33 /* TemperatureConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */; };
 		419A288C1E3CCB25005F3B33 /* TemperatureConversionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */; };
 		419A288E1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */; };
-		419A28901E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */; };
 		419A28931E3CCD52005F3B33 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28921E3CCD52005F3B33 /* RxSwift.framework */; };
 		419A28951E3CCD6E005F3B33 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419A28941E3CCD6E005F3B33 /* RxCocoa.framework */; };
 		419A28971E3CCE4E005F3B33 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 419A28921E3CCD52005F3B33 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -105,7 +104,6 @@
 		419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionViewController.swift; path = Source/Temperature/TemperatureConversionViewController.swift; sourceTree = "<group>"; };
 		419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TemperatureConversionViewController.xib; path = Source/Temperature/TemperatureConversionViewController.xib; sourceTree = "<group>"; };
 		419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionPresenter.swift; path = Source/Temperature/TemperatureConversionPresenter.swift; sourceTree = "<group>"; };
-		419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TemperatureConversionEventProvider.swift; path = Source/Temperature/TemperatureConversionEventProvider.swift; sourceTree = "<group>"; };
 		419A28921E3CCD52005F3B33 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		419A28941E3CCD6E005F3B33 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		419A289A1E3CCFB9005F3B33 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Either.swift; path = Source/Data/Either.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 				419A28891E3CCB25005F3B33 /* TemperatureConversionViewController.swift */,
 				419A288A1E3CCB25005F3B33 /* TemperatureConversionViewController.xib */,
 				419A288D1E3CCC04005F3B33 /* TemperatureConversionPresenter.swift */,
-				419A288F1E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift */,
 				419A289C1E3CD19A005F3B33 /* TemperatureConversionCoordinator.swift */,
 				419A289E1E3CF14D005F3B33 /* TemperatureConverter.swift */,
 				419A28A41E3D569D005F3B33 /* TemperatureConversionViewState.swift */,
@@ -458,7 +455,6 @@
 				419A289D1E3CD19A005F3B33 /* TemperatureConversionCoordinator.swift in Sources */,
 				419A28871E3CCA28005F3B33 /* TemperatureComponentViewController.swift in Sources */,
 				419A28801E3CC85B005F3B33 /* UIViewController+Layout.swift in Sources */,
-				419A28901E3CCC5A005F3B33 /* TemperatureConversionEventProvider.swift in Sources */,
 				419A28791E3BF033005F3B33 /* TemperatureFlowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

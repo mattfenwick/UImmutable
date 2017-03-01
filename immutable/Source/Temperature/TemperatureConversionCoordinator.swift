@@ -24,14 +24,19 @@ class TemperatureConversionCoordinator {
     // MARK: init
 
     init(units: Observable<(TemperatureUnit, TemperatureUnit)>) {
-        let eventProvider = TemperatureConversionEventProvider(fromText: fromTextSubject.asObservable())
-        presenter = TemperatureConversionPresenter(units: units, eventProvider: eventProvider)
-        viewController = TemperatureConversionViewController(inputUnit: presenter.fromUnit, outputUnit: presenter.toUnit, viewState: presenter.viewState)
+        presenter = TemperatureConversionPresenter(units: units, fromText: fromTextSubject.asObservable())
+        viewController = TemperatureConversionViewController(
+            inputUnit: presenter.fromUnit,
+            outputUnit: presenter.toUnit,
+            viewState: presenter.viewState)
 
-        // tie up circular references
-        viewController.fromText.subscribe(fromTextSubject).addDisposableTo(disposeBag)
         configTap = viewController.configTap
         doneTap = viewController.doneTap
+
+        // boilerplate
+        viewController.fromText
+            .subscribe(fromTextSubject)
+            .addDisposableTo(disposeBag)
     }
 
     deinit {

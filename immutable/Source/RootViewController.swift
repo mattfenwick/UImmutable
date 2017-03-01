@@ -16,6 +16,8 @@ class RootViewController: UIViewController {
     @IBOutlet private weak var presentVCButton: UIButton!
 
     private let disposeBag = DisposeBag()
+
+    private var temperatureFlowController: TemperatureFlowController?
     
     init() {
         super.init(nibName: "RootViewController",
@@ -43,8 +45,19 @@ class RootViewController: UIViewController {
     }
 
     private func presentFlowController() {
-        let temperatureComponent = TemperatureFlowController()
-        present(temperatureComponent.componentViewController, animated: true, completion: nil)
+        let temperatureFlowController = TemperatureFlowController()
+        present(temperatureFlowController.componentViewController, animated: true, completion: nil)
+
+        temperatureFlowController.didTapDone
+            .subscribe(onNext: { [unowned self] in self.dismissFlowController() })
+            .addDisposableTo(disposeBag)
+
+        self.temperatureFlowController = temperatureFlowController
+    }
+
+    private func dismissFlowController() {
+        dismiss(animated: true, completion: nil)
+        temperatureFlowController = nil
     }
 
     private func presentVC() {
